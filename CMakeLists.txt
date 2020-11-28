@@ -286,6 +286,9 @@ add_executable(leveldbutil
 )
 target_link_libraries(leveldbutil leveldb)
 
+add_executable(main "db/main.cpp")
+target_link_libraries(main leveldb)
+
 if(LEVELDB_BUILD_TESTS)
   enable_testing()
 
