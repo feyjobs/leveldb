@@ -53,6 +53,8 @@ class LEVELDB_EXPORT Slice {
 
   // Return the ith byte in the referenced data.
   // REQUIRES: n < size()
+  // 什么时候用断言, 可能是程序员写的代码错误的时候用断言
+  // 什么时候用异常处理, 系统失败的时候用异常处理
   char operator[](size_t n) const {
     assert(n < size());
     return data_[n];
@@ -90,6 +92,8 @@ class LEVELDB_EXPORT Slice {
   size_t size_;
 };
 
+// 类外操作符重载 不用再类里面申明 但是需要额外把this作为第一个参数传经来
+// 如果在类里面就只要一个参数就可以
 inline bool operator==(const Slice& x, const Slice& y) {
   return ((x.size() == y.size()) &&
           (memcmp(x.data(), y.data(), x.size()) == 0));

@@ -53,6 +53,16 @@ class LEVELDB_EXPORT DB {
   static Status Open(const Options& options, const std::string& name,
                      DB** dbptr);
 
+  // c++ 每个类都有默认的自动生成函数(如果没有被显示创建)
+  // DB() 默认构造函数
+  // ~DB() 默认析构函数
+  // DB(const DB&) 拷贝构造函数
+  // DB& operator=(const DB&) 赋值构造函数 = 操作符重载
+  // 在c++98会有以上4个默认函数被编译器生成, c++11还有两个暂时不表
+  // 这里就产生一个问题, 如果我们不希望一个类有默认构造函数或者拷贝构造函数怎么办呢
+  // 在c++98的解决方法是手动将这些方法置成private , 这样调用这些private方法就会被编译器报错
+  // 更讲究一点的讲这些不能自动生成的方法抽象到父类, 比较有名的boost::uncopyable
+  // 发展到c++11, 如果要禁用默写编译器自动生成函数, 直接将这个函数后面加上= delete即可
   DB() = default;
 
   DB(const DB&) = delete;
